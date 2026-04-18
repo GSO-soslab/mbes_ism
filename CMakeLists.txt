@@ -7,9 +7,16 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+add_executable(mbes_ism_node src/mbes_ism_node.cpp)
+target_include_directories(mbes_ism_node PUBLIC include)
+ament_target_dependencies(mbes_ism_node rclcpp sensor_msgs)
+
+install(TARGETS mbes_ism_node DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY config launch DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
