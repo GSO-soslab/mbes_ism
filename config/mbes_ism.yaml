@@ -3,5 +3,5 @@ mbes_ism:
     stonefish: false
     laserscan_topic: /alpha_rise/stonefish/multibeam/data
     pointcloud_topic: "/alpha_rise/surveyor/pointcloud"
-    pointcloud_pub_topic: "/alpha_rise/mbes_ism/pointcloud"
+    pointcloud_pub_topic: "/alpha_rise/mbes/pointcloud/probability"
     range_resolution: 1.0
