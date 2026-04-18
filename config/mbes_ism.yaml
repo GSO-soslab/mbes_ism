@@ -1,6 +1,6 @@
 mbes_ism:
   ros__parameters:
-    stonefish: false
+    stonefish: true
     laserscan_topic: /alpha_rise/stonefish/multibeam/data
     pointcloud_topic: "/alpha_rise/surveyor/pointcloud"
     pointcloud_pub_topic: "/alpha_rise/mbes/pointcloud/probability"
