@@ -43,7 +43,9 @@ private:
     std::string pointcloud_topic_;
     std::string laserscan_topic_;
     std::string pointcloud_pub_topic_;
-    float range_resolution_;  // metres per r bin
+    float range_resolution_;
+    float p_hit_;
+    float p_miss_;
 
     // ros
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_sub_;
@@ -66,6 +68,12 @@ private:
 
         this->declare_parameter<double>("range_resolution", 1.0);
         range_resolution_ = static_cast<float>(this->get_parameter("range_resolution").as_double());
+
+        this->declare_parameter<double>("p_hit", 0.7);
+        p_hit_ = static_cast<float>(this->get_parameter("p_hit").as_double());
+
+        this->declare_parameter<double>("p_miss", 0.4);
+        p_miss_ = static_cast<float>(this->get_parameter("p_miss").as_double());
     }
 
     void setupRos()
@@ -91,9 +99,9 @@ private:
         int r_hit_bin = static_cast<int>(std::floor(r / range_resolution_));
 
         for (int rb = 0; rb < r_hit_bin; ++rb) {
-            polar_grid[{rb, theta_bin}] = 0.1f;
+            polar_grid[{rb, theta_bin}] = p_miss_;
         }
-        polar_grid[{r_hit_bin, theta_bin}] = 0.9f;
+        polar_grid[{r_hit_bin, theta_bin}] = p_hit_;
     }
 
     void pointcloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
